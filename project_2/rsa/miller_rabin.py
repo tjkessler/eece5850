@@ -1,7 +1,8 @@
 from random import randrange
 from typing import Tuple
+from math import gcd
 
-from .keygen import n_bit_rand, coprime
+from .keygen import n_bit_rand
 
 
 def miller_rabin(n: int, k: int) -> bool:
@@ -94,7 +95,7 @@ def generate_key(n_bits: int = 32,
 
     # Find int `e` that's coprime with `p_n`
     e = n_bit_rand(n_bits)
-    while(not coprime(e, p_n)):
+    while(gcd(e, p_n) != 1):
         e = n_bit_rand(n_bits)
 
     # Multiplicative inverse to get `d`

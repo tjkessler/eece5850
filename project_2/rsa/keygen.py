@@ -38,21 +38,6 @@ def n_bit_rand(n: int) -> int:
     return randint(2**(n - 1) + 1, 2**n - 1)
 
 
-def coprime(a: int, b: int) -> bool:
-    """ coprime: helper function, for `generate_key`; determines whether
-    two given integers are coprime (GCD == 1)
-
-    Args:
-        a (int): first integer
-        b (int): second integer
-
-    Returns:
-        bool: `True` if coprime, `False` otherwise
-    """
-
-    return gcd(a, b) == 1
-
-
 def generate_key(n_bits: int = 32) -> Tuple[Tuple[int], Tuple[int]]:
     """ generate_key: generates a public key and private key for RSA
     encryption/decryption
@@ -84,7 +69,7 @@ def generate_key(n_bits: int = 32) -> Tuple[Tuple[int], Tuple[int]]:
 
     # Find int `e` that's coprime with `p_n`
     e = n_bit_rand(n_bits)
-    while(not coprime(e, p_n)):
+    while(gcd(e, p_n) != 1):
         e = n_bit_rand(n_bits)
 
     # Multiplicative inverse to get `d`
